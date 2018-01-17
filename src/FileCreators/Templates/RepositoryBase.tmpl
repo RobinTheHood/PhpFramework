@@ -1,0 +1,17 @@
+<?php
+namespace App\Repositories\Base;
+
+use RobinTheHood\PhpFramework\Database\Repository\Repository;
+
+class {CLASS_NAME}BaseRepository extends Repository
+{
+    function __construct()
+    {
+        parent::__construct();
+
+        $this->className = '{CLASS_NAME}';
+        $this->addStructure([
+{ATTRIBUTES}
+        ]);
+    }
+}

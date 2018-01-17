@@ -1,0 +1,46 @@
+<?php
+namespace App\Controllers\PublicControllers;
+
+use RobinTheHood\PhpFramework\Controllers\ModelController;
+
+class {CLASS_NAME}Controller extends ModelController
+{
+    private $options = [
+        'enabledFields' => 'all',
+        'autoFieldTypes' => 'on',
+        'actions' => 'all'
+    ];
+
+    public function preInvoke()
+    {
+    }
+
+    public function postInvoke()
+    {
+    }
+
+    public function invoke()
+    {
+        $this->invokeModelIndex($this->options);
+    }
+
+    public function invokeShow()
+    {
+        $this->invokeModelShow($this->options);
+    }
+
+    public function invokeNew()
+    {
+        $this->invokeModelNew($this->options);
+    }
+
+    public function invokeEdit()
+    {
+        $this->invokeModelEdit($this->options);
+    }
+
+    public function invokeDelete()
+    {
+        $this->invokeModelDelete();
+    }
+}

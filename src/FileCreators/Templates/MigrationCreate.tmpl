@@ -1,0 +1,15 @@
+<?php
+class Create{CLASS_NAME}Migration extends \Migration\ActiveRecord
+{
+    public function up()
+    {
+        $this->createTable('{TABLE_NAME}', [
+{ATTRIBUTES}
+        ]);
+    }
+
+    public function down()
+    {
+        $this->dropTable('{TABLE_NAME}');
+    }
+}
