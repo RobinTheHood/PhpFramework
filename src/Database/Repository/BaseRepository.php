@@ -8,8 +8,6 @@ use RobinTheHood\SqlBuilder\SqlBuilder;
 use RobinTheHood\NamingConvention\NamingConvention;
 use RobinTheHood\DateTime\DateTime;
 
-use RobinTheHood\Debug\Debug;
-
 class BaseRepository
 {
     protected $structure;

@@ -13,7 +13,7 @@ class Button
         if ($values) {
             $this->values = $values;
         } else {
-            $this->values = $_GET;
+            $this->values = Request::getAll();
         }
     }
 

@@ -2,6 +2,8 @@
 namespace RobinTheHood\PhpFramework\Views\Twig;
 
 use RobinTheHood\PhpFramework\App;
+use RobinTheHood\PhpFramework\Button;
+use RobinTheHood\PhpFramework\Session;
 use RobinTheHood\PhpFramework\AppServerRequest;
 use RobinTheHood\PhpFramework\Views\View;
 
@@ -31,7 +33,11 @@ class TwigView extends View
             $this->setVars($variables);
         }
 
-        $this->setVar('request', new AppServerRequest());
+        $this->setVars([
+            'request' => new AppServerRequest(),
+            'button' => new Button(),
+            '_this' => $this
+        ]);
     }
 
     public function getTwig()
@@ -53,6 +59,38 @@ class TwigView extends View
     public function display()
     {
         $this->template->display($this->variables);
+    }
+
+    public function getFlashMassage($type)
+    {
+        if ($type == 'success') {
+            return Session::dropValue('FlashSuccess', 'Flash');
+        }
+        if ($type == 'info') {
+            return Session::dropValue('FlashInfo', 'Flash');
+        }
+        if ($type == 'warning') {
+            return Session::dropValue('FlashWarning', 'Flash');
+        }
+        if ($type == 'danger') {
+            return Session::dropValue('FlashDanger', 'Flash');
+        }
+    }
+
+    public function hasFlashMassage($type)
+    {
+        if ($type == 'success') {
+            return Session::getValue('FlashSuccess', 'Flash');
+        }
+        if ($type == 'info') {
+            return Session::getValue('FlashInfo', 'Flash');
+        }
+        if ($type == 'warning') {
+            return Session::getValue('FlashWarning', 'Flash');
+        }
+        if ($type == 'danger') {
+            return Session::getValue('FlashDanger', 'Flash');
+        }
     }
 
     public function __toString()

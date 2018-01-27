@@ -1,13 +1,13 @@
 <?php
 namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 
-use RobinTheHood\PhpFramework\Controllers\ModelController\ModelControllerBase;
 use RobinTheHood\PhpFramework\Button;
-use RobinTheHood\PhpFramework\ValueFormater;
-use RobinTheHood\PhpFramework\Views\Twig\TwigView;
+use RobinTheHood\PhpFramework\Controllers\ModelController\ModelControllerBase;
 use RobinTheHood\PhpFramework\Html\HtmlObjectForm;
 use RobinTheHood\PhpFramework\Session;
-use RobinTheHood\Debug\Debug;
+use RobinTheHood\PhpFramework\ValueFormater;
+use RobinTheHood\PhpFramework\Request;
+use RobinTheHood\PhpFramework\ArrayHelper;
 
 /*
 get:
@@ -82,7 +82,7 @@ class ModelController extends ModelControllerBase
         if (!empty($functions['get'])) {
             $obj = $functions['get']();
         } else {
-            $obj = $this->repo->get($_GET['id']);
+            $obj = $this->repo->get($this->getId());
             if (!$obj) {
                 die('Object not found.');
             }
@@ -98,7 +98,7 @@ class ModelController extends ModelControllerBase
 
         $valueFormater = new ValueFormater($values, $this->options['fieldTypes']);
 
-        if (isset($_GET['format']) &&  $_GET['format'] == 'json') {
+        if (Request::get('format') === 'json') {
             $temp = json_encode($values);
             echo str_replace('\u0000', '', $temp);
             return;
@@ -127,7 +127,7 @@ class ModelController extends ModelControllerBase
             $obj = $functions['modify']($obj);
         }
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->isPostRequest()) {
             $obj->loadFromPOST($this->options['fieldTypes']);
 
             if (!empty($functions['postModify'])) {
@@ -163,7 +163,7 @@ class ModelController extends ModelControllerBase
         if (!empty($functions['get'])) {
             $obj = $functions['get']();
         } else {
-            $obj = $this->repo->get($_GET['id']);
+            $obj = $this->repo->get($this->getId());
             if (!$obj) {
                 die('Object not found.');
             }
@@ -175,14 +175,14 @@ class ModelController extends ModelControllerBase
             $obj = $functions['modify']($obj);
         }
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->isPostRequest()) {
             $obj->loadFromPost($this->options['fieldTypes']);
 
             if (!empty($functions['postModify'])) {
                 $obj = $functions['postModify']($obj);
             }
 
-            $id = $this->repo->update($obj);
+            $this->repo->update($obj);
 
             if (!empty($functions['postDone'])) {
                 $functions['postDone']($obj);
@@ -209,9 +209,10 @@ class ModelController extends ModelControllerBase
     {
         $this->init($options);
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $value = &$_POST[$this->modelName];
-            $arrays = $value ? $value : [];
+        if ($this->isPostRequest()) {
+            $post = Request::postAll();
+            $arrays = ArrayHelper::getIfSet($post, $this->modelName, []);
+
             foreach($arrays as &$array) {
                 if (!empty($functions['postDefault'])) {
                     $array = $functions['postDefault']($array);
@@ -220,7 +221,7 @@ class ModelController extends ModelControllerBase
                 if ($array['id'] != -1) {
                     $obj = $this->repo->get($array['id']);
                     if ($obj) {
-                        if ($array['multiEditAction'] == 'delete') {
+                        if (!empty($array['multiEditAction']) && $array['multiEditAction'] == 'delete') {
                             $id = $this->repo->delete($obj);
                         } else {
                             if (!empty($functions['postEdit'])) {
@@ -231,7 +232,7 @@ class ModelController extends ModelControllerBase
                         }
                     }
                 } else {
-                    if ($array['multiEditAction'] != 'delete') {
+                    if (isset($array['multiEditAction']) && $array['multiEditAction'] != 'delete') {
                         if (!empty($functions['postNew'])) {
                             $array = $functions['postNew']($array);
                         }
@@ -303,22 +304,36 @@ class ModelController extends ModelControllerBase
         return $templateVars;
     }
 
-    public function invokeModelDelete($url = '')
+    public function invokeModelDelete($options = '', $functions = [])
     {
-        $obj = $this->repo->get($_GET['id']);
-        if (!$obj) {
-            die('Object not found.');
+        if (!empty($functions['get'])) {
+            $obj = $functions['get']();
+        } else {
+            $obj = $this->repo->get($this->getId());
+            if (!$obj) {
+                die('Object not found.');
+            }
+        }
+
+        $this->init($options, $obj);
+
+        $delete = true;
+        if (!empty($functions['check'])) {
+            $delete = $functions['check']($obj);
+        }
+
+        if (!$delete) {
+            return false;
         }
 
         $this->repo->delete($obj);
 
-        if ($url) {
-            $this->redirect($url);
-
+        if (!empty($functions['postDone'])) {
+            $functions['postDone']();
         } else {
-            $this->redirect(new Button([
-                'app' => 'customer',
-                'controller' => $this->modelName . 's'
+            $this->redirect((new Button)->change([
+                'controller' => $this->modelName . 's',
+                'action' => 'index'
             ]));
         }
     }

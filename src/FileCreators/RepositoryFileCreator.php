@@ -1,7 +1,6 @@
 <?php
 namespace RobinTheHood\PhpFramework\FileCreators;
 
-use RobinTheHood\Debug\Debug;
 use RobinTheHood\PhpFramework\FileCreators\FileCreator;
 
 class RepositoryFileCreator extends FileCreator

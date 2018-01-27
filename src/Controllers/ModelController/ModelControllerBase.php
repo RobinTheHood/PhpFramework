@@ -3,6 +3,7 @@ namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 
 use RobinTheHood\PhpFramework\Controllers\Controller;
 use RobinTheHood\PhpFramework\AppServerRequest;
+use RobinTheHood\PhpFramework\Request;
 
 class ModelControllerBase extends Controller
 {
@@ -45,6 +46,11 @@ class ModelControllerBase extends Controller
         return $this->appName;
     }
 
+    public function getId()
+    {
+        return Request::getInt('id');
+    }
+    
     public function init($options, $object = null)
     {
         $this->options = $this->initOptions($options, $object);

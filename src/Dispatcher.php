@@ -1,7 +1,6 @@
 <?php
 namespace RobinTheHood\PhpFramework;
 
-use RobinTheHood\NamingConvention\NamingConvention;
 use RobinTheHood\PhpFramework\AppServerRequest;
 use RobinTheHood\PhpFramework\Redirect;
 use RobinTheHood\PhpFramework\Exceptions\ControllerFileNotExsistException;

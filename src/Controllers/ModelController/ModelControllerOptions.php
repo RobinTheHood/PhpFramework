@@ -38,8 +38,7 @@ namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 use RobinTheHood\PhpFramework\App;
 use RobinTheHood\PhpFramework\ArrayHelper;
 use RobinTheHood\PhpFramework\Button;
-use RobinTheHood\Debug\Debug;
-
+use RobinTheHood\Database\DatabaseType;
 
 class ModelControllerOptions
 {
@@ -145,15 +144,15 @@ class ModelControllerOptions
         if ($options['autoFieldTypes'] == 'on') {
             foreach($structure as $columnName => $definition) {
                 if (empty($options['fieldTypes'][$columnName])) {
-                    if ($columnName == 'id' && $definition[0] == 'TYPE_INT') {
+                    if ($columnName == 'id' && $definition[0] == DatabaseType::T_INT) {
                         $options['fieldTypes'][$columnName] = 'hidden';
-                    } elseif ($definition[0] == 'TYPE_TEXT') {
+                    } elseif ($definition[0] == DatabaseType::T_TEXT) {
                         $options['fieldTypes'][$columnName] = 'text';
-                    } elseif ($definition[0] == 'TYPE_FLOAT') {
+                    } elseif ($definition[0] == DatabaseType::T_FLOAT) {
                         $options['fieldTypes'][$columnName] = 'float';
-                    } elseif ($definition[0] == 'TYPE_DATE_TIME') {
+                    } elseif ($definition[0] == DatabaseType::T_DATE_TIME) {
                         $options['fieldTypes'][$columnName] = 'datetime';
-                    } elseif ($definition[0] == 'TYPE_INT' && $definition[1]) {
+                    } elseif ($definition[0] == DatabaseType::T_INT && $definition[1]) {
                         $options['fieldTypes'][$columnName] = 'select';
                     }
                 }

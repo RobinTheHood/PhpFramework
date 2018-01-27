@@ -15,14 +15,14 @@ class Redirect
      */
     public static function status302($url, $domain = '')
     {
-        $host  = $_SERVER['HTTP_HOST'];
+        $host  = Request::server('HTTP_HOST');
         if ($domain) {
             $host = $domain;
         }
 
         $protocoll = self::getProtocoll();
 
-        $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        $uri   = rtrim(dirname(Request::server('PHP_SELF')), '/\\');
         header("Location: $protocoll://$host/$uri$url");
         exit;
     }
@@ -35,11 +35,11 @@ class Redirect
 
     public static function status404($url)
     {
-        $host  = $_SERVER['HTTP_HOST'];
+        $host  = Request::server('HTTP_HOST');
 
         $protocoll = self::getProtocoll();
 
-        $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        $uri   = rtrim(dirname(Request::server('PHP_SELF')), '/\\');
         header("HTTP/1.0 404 Not Found");
         header("Location: $protocoll://$host$uri$url");
         exit;
@@ -63,7 +63,7 @@ class Redirect
 
     public static function getProtocoll()
     {
-        if (isset($_SERVER['HTTPS'])) {
+        if (Request::server('HTTPS')) {
             return 'https';
         } else {
             return 'http';

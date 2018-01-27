@@ -3,6 +3,7 @@ namespace RobinTheHood\PhpFramework\Controllers;
 
 use RobinTheHood\PhpFramework\Button;
 use RobinTheHood\PhpFramework\Redirect;
+use RobinTheHood\PhpFramework\Request;
 use RobinTheHood\Debug\Debug;
 
 abstract class Controller
@@ -25,5 +26,14 @@ abstract class Controller
     public function redirect(Button $button)
     {
         Redirect::redirect($button);
+    }
+    
+    public function isPostRequest()
+    {
+        if (Request::server('REQUEST_METHOD') === 'POST') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

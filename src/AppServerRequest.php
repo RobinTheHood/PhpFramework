@@ -12,22 +12,22 @@ class AppServerRequest
 
     public function __construct()
     {
-        if (isset($_GET['app'])) {
-            $this->app = NamingConvention::snakeCaseToCamelCaseFirstUpper($_GET['app']);
+        if ($app = Request::get('app')) {
+            $this->app = NamingConvention::snakeCaseToCamelCaseFirstUpper($app);
         }
 
-        if (isset($_GET['controller'])) {
-            $this->controller = NamingConvention::snakeCaseToCamelCaseFirstUpper($_GET['controller']);
+        if ($controller = Request::get('controller')) {
+            $this->controller = NamingConvention::snakeCaseToCamelCaseFirstUpper($controller);
         }
 
-        if (isset($_GET['action'])) {
-            $this->action = NamingConvention::snakeCaseToCamelCaseFirstUpper($_GET['action']);
+        if ($action = Request::get('action')) {
+            $this->action = NamingConvention::snakeCaseToCamelCaseFirstUpper($action);
         }
     }
 
     public function getUri()
     {
-        return $_SERVER['REQUEST_URI'];
+        return Request::server('REQUEST_URI');
     }
 
     public function getApp()

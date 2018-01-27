@@ -1,6 +1,8 @@
 <?php
 namespace RobinTheHood\PhpFramework;
 
+use RobinTheHood\DateTime\DateTime;
+
 class ValueFormater
 {
     private $values;
@@ -76,7 +78,8 @@ class ValueFormater
 
     public function getDate($varName)
     {
-        return $this->getValue($varName);
+        $value = $this->getValue($varName);
+        return DateTime::shortDate($value);
     }
 
     public function getTime($varName)

@@ -4,6 +4,8 @@ namespace RobinTheHood\PhpFramework\Object;
 use RobinTheHood\NamingConvention\NamingConvention;
 use RobinTheHood\PhpFramework\ValueParser;
 use RobinTheHood\PhpFramework\Button;
+use RobinTheHood\PhpFramework\Request;
+use RobinTheHood\PhpFramework\ArrayHelper;
 
 class Object
 {
@@ -50,10 +52,12 @@ class Object
     private function filterPost()
     {
         $className = $this->getClassName();
-        if (!empty($_POST[$className]) && !empty($_POST[$className][0])) {
-            return $_POST[$className][0];
+        $post = Request::postAll();
+
+        if (!empty($post[$className]) && !empty($post[$className][0])) {
+            return $post[$className][0];
         }
-        return $_POST;
+        return $post;
     }
 
     private function parseArrayValues($array, $fieldTypes)
@@ -93,5 +97,23 @@ class Object
             ]);
 
         }
+    }
+
+    public static function getAllFromPost($className, $fieldTypes = [])
+    {
+        $objs = [];
+
+        $post = Request::postAll();
+        $arrays = ArrayHelper::getIfSet($post, $className, []);
+
+        foreach($arrays as &$array) {
+            if (ArrayHelper::getIfSet($array, 'multiEditAction') != 'delete') {
+                $objClassNameWithNamespace = 'App\\Models\\' . $className;
+                $obj = new $objClassNameWithNamespace();
+                $obj->loadFromArray($array, $fieldTypes);
+                $objs[] = $obj;
+            }
+        }
+        return $objs;
     }
 }

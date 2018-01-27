@@ -30,6 +30,15 @@ class HtmlObjectForm extends HtmlObject
 
     public function getAction($values = [])
     {
+        if ($this->isEdit()) {
+            if (!isset($values['action'])) {
+                $values['action'] = 'edit';
+            }
+
+            if (!isset($values['id'])) {
+                $values['id'] = $this->object->getId();
+            }
+        }
         return (new Button)->change($values);
     }
 

@@ -33,9 +33,9 @@ class ObjectSort
     {
         self::$objectMethod = $method;
         if ($order == 'desc') {
-            usort($objectArray, ['RobinTheHood\PhpFramework\Object\ObjectSort', 'compareDesc']);;
+            usort($objectArray, ['RobinTheHood\PhpFramework\Object\ObjectSort', 'compareDesc']);
         } else {
-            usort($objectArray, ['RobinTheHood\PhpFramework\Object\ObjectSort', 'compareAsc']);;
+            usort($objectArray, ['RobinTheHood\PhpFramework\Object\ObjectSort', 'compareAsc']);
         }
         return $objectArray;
     }
