@@ -2,11 +2,11 @@
 namespace RobinTheHood\PhpFramework\Views\Twig;
 
 use RobinTheHood\PhpFramework\App;
+use RobinTheHood\PhpFramework\Module\ModuleLoader;
 use RobinTheHood\PhpFramework\Button;
 use RobinTheHood\PhpFramework\Session;
 use RobinTheHood\PhpFramework\AppServerRequest;
 use RobinTheHood\PhpFramework\Views\View;
-
 
 class TwigView extends View
 {
@@ -19,6 +19,15 @@ class TwigView extends View
         $this->setTemplatesPath($twigConfig['templatesPath']);
 
         $loader = new \Twig_Loader_Filesystem($twigConfig['templatesPath']);
+
+        //Add Module Namespaces
+        $moduleDescriptors = ModuleLoader::getConfig();
+        foreach ($moduleDescriptors as $moduleDescriptor) {
+            $relativePath = $moduleDescriptor['path'] . '/Templates/Twig';
+            $twigNamespace = $moduleDescriptor['twigNamespace'];
+            $loader->addPath(App::getRootPath() . $relativePath, $twigNamespace);
+        }
+
         $twig = new \Twig_Environment($loader, [
             'debug' => $twigConfig['debug'],
             'cache' => $twigConfig['cachePath']

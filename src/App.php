@@ -1,9 +1,11 @@
 <?php
 namespace RobinTheHood\PhpFramework;
 
+use RobinTheHood\Database\Database;
 use RobinTheHood\PhpFramework\Dispatcher;
 use RobinTheHood\PhpFramework\AppServerRequest;
-use RobinTheHood\Database\Database;
+use RobinTheHood\PhpFramework\Module\ModuleLoader;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class App
 {
@@ -11,6 +13,8 @@ class App
     private static $configPath;
 
     private static $config;
+
+    private static $eventDispatcher;
 
     public static function init(array $options)
     {
@@ -28,6 +32,14 @@ class App
     {
         self::loadConfig();
 
+        self::$eventDispatcher = new EventDispatcher();
+
+        $moduleLoader = new ModuleLoader([
+            'rootPath' => App::getRootPath()
+        ]);
+        $moduleLoader->setEventDispatcher(self::$eventDispatcher);
+        $moduleLoader->load();
+        
         $request = AppServerRequest::getRequest();
 
         Database::newConnection(self::$config['database']);
@@ -49,6 +61,11 @@ class App
     public static function getConfig()
     {
         return self::$config;
+    }
+
+    public static function getEventDispatcher()
+    {
+        return self::$eventDispatcher;
     }
 
     public static function loadConfig()

@@ -1,4 +1,11 @@
 <?php
+namespace RobinTheHood\PhpFramework\Controllers\ModelController;
+
+use RobinTheHood\Database\DatabaseType;
+use RobinTheHood\PhpFramework\App;
+use RobinTheHood\PhpFramework\Button;
+use RobinTheHood\PhpFramework\ArrayHelper;
+
 /*
 *** enabledFields ***
     all:
@@ -32,13 +39,6 @@
 *** editTemplate ***
     Beschreibung
 */
-
-namespace RobinTheHood\PhpFramework\Controllers\ModelController;
-
-use RobinTheHood\PhpFramework\App;
-use RobinTheHood\PhpFramework\ArrayHelper;
-use RobinTheHood\PhpFramework\Button;
-use RobinTheHood\Database\DatabaseType;
 
 class ModelControllerOptions
 {

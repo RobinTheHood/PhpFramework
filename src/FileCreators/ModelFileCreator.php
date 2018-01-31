@@ -1,11 +1,10 @@
 <?php
 namespace RobinTheHood\PhpFramework\FileCreators;
 
-use RobinTheHood\NamingConvention\NamingConvention;
 use RobinTheHood\Database\DatabaseType;
-
-use RobinTheHood\PhpFramework\FileCreators\FileCreator;
+use RobinTheHood\NamingConvention\NamingConvention;
 use RobinTheHood\PhpFramework\FileCreators\Dependency;
+use RobinTheHood\PhpFramework\FileCreators\FileCreator;
 
 class ModelFileCreator extends FileCreator
 {

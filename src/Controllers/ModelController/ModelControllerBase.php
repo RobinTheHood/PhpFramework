@@ -1,9 +1,9 @@
 <?php
 namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 
-use RobinTheHood\PhpFramework\Controllers\Controller;
-use RobinTheHood\PhpFramework\AppServerRequest;
 use RobinTheHood\PhpFramework\Request;
+use RobinTheHood\PhpFramework\AppServerRequest;
+use RobinTheHood\PhpFramework\Controllers\Controller;
 
 class ModelControllerBase extends Controller
 {
@@ -50,14 +50,15 @@ class ModelControllerBase extends Controller
     {
         return Request::getInt('id');
     }
-    
+
     public function init($options, $object = null)
     {
         $this->options = $this->initOptions($options, $object);
         $this->filteredStructure = $this->filterStructure($this->structure, $this->options['enabledFields']);
     }
 
-    protected function initOptions($options, $object = null) {
+    protected function initOptions($options, $object = null)
+    {
         $modelControllerOptions = new ModelControllerOptions($options, $object, $this);
         return $modelControllerOptions->getInitOptions();
     }

@@ -1,8 +1,8 @@
 <?php
 namespace RobinTheHood\PhpFramework\Html;
 
-use RobinTheHood\PhpFramework\Object\ObjectValueFormater;
 use RobinTheHood\NamingConvention\NamingConvention;
+use RobinTheHood\PhpFramework\Object\ObjectValueFormater;
 
 class HtmlObject
 {

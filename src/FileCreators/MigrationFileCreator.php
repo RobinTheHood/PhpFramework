@@ -1,8 +1,8 @@
 <?php
 namespace RobinTheHood\PhpFramework\FileCreators;
 
-use RobinTheHood\NamingConvention\NamingConvention;
 use RobinTheHood\Database\DatabaseType;
+use RobinTheHood\NamingConvention\NamingConvention;
 use RobinTheHood\PhpFramework\FileCreators\FileCreator;
 
 class MigrationFileCreator extends FileCreator

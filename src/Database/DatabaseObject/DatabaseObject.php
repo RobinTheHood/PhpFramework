@@ -1,6 +1,7 @@
 <?php
 namespace RobinTheHood\PhpFramework\Database\DatabaseObject;
 
+use RobinTheHood\DateTime\DateTime;
 use RobinTheHood\PhpFramework\Object\Object;
 
 class DatabaseObject extends Object

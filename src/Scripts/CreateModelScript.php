@@ -1,13 +1,13 @@
 <?php
 namespace RobinTheHood\PhpFramework\Scripts;
 
+use RobinTheHood\Database\DatabaseType;
 use RobinTheHood\Debug\Debug;
 use RobinTheHood\NamingConvention\NamingConvention;
-use RobinTheHood\Database\DatabaseType;
 use RobinTheHood\PhpFramework\FileCreators\ModelFileCreator;
-use RobinTheHood\PhpFramework\FileCreators\RepositoryFileCreator;
 use RobinTheHood\PhpFramework\FileCreators\MigrationFileCreator;
 use RobinTheHood\PhpFramework\FileCreators\ControllerFileCreator;
+use RobinTheHood\PhpFramework\FileCreators\RepositoryFileCreator;
 
 class CreateModelScript //extends Script
 {

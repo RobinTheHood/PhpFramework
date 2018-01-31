@@ -2,10 +2,10 @@
 namespace RobinTheHood\PhpFramework\Object;
 
 use RobinTheHood\NamingConvention\NamingConvention;
-use RobinTheHood\PhpFramework\ValueParser;
 use RobinTheHood\PhpFramework\Button;
 use RobinTheHood\PhpFramework\Request;
 use RobinTheHood\PhpFramework\ArrayHelper;
+use RobinTheHood\PhpFramework\ValueParser;
 
 class Object
 {

@@ -3,7 +3,6 @@ namespace RobinTheHood\PhpFramework;
 
 use RobinTheHood\NamingConvention\NamingConvention;
 
-
 class ArrayHelper
 {
     public static function getFirst($array)

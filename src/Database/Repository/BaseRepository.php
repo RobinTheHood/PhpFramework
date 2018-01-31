@@ -1,12 +1,12 @@
 <?php
 namespace RobinTheHood\PhpFramework\Database\Repository;
 
-use RobinTheHood\PhpFramework\Database\DatabaseObject\DatabaseObjectCreator;
-use RobinTheHood\Database\DatabaseAction;
 use RobinTheHood\Database\DatabaseType;
-use RobinTheHood\SqlBuilder\SqlBuilder;
-use RobinTheHood\NamingConvention\NamingConvention;
+use RobinTheHood\Database\DatabaseAction;
 use RobinTheHood\DateTime\DateTime;
+use RobinTheHood\NamingConvention\NamingConvention;
+use RobinTheHood\PhpFramework\Database\DatabaseObject\DatabaseObjectCreator;
+use RobinTheHood\SqlBuilder\SqlBuilder;
 
 class BaseRepository
 {

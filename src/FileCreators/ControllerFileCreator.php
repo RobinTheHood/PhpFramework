@@ -1,8 +1,7 @@
 <?php
 namespace RobinTheHood\PhpFramework\FileCreators;
-
 use RobinTheHood\Debug\Debug;
-use RobinTheHood\PhpFramework\Console\Creators\FileCreator;
+use RobinTheHood\PhpFramework\FileCreators\FileCreator;
 
 class ControllerFileCreator extends FileCreator
 {

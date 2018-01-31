@@ -3,7 +3,6 @@ namespace RobinTheHood\PhpFramework;
 
 use RobinTheHood\NamingConvention\NamingConvention;
 
-
 class Button
 {
     protected $values = [];
@@ -59,6 +58,9 @@ class Button
 
     private function stdValuesToSnakeCase($values)
     {
+        if (isset($values['module']) && $values['module']) {
+            $values['module'] = NamingConvention::camelCaseToSnakeCase($values['module']);
+        }
         if (isset($values['app']) && $values['app']) {
             $values['app'] = NamingConvention::camelCaseToSnakeCase($values['app']);
         }

@@ -1,17 +1,18 @@
 <?php
 namespace RobinTheHood\PhpFramework;
 
-
 class Redirect
 {
     /**
-     * Fuehrt einen redirect aus. Verwendet aber nicht den StatusCode 301
-     * sondern 302.
-     * Das heißt es handelt sich nicht um eine permanete Umleitung. Die alte
-     * und die neue Url werden z.B. als zwei unterschiedliche Seiten
-     * von Suchmaschiene behandelt.
+     * Führt einen redirect aus. Verwendet aber nicht den StatusCode 301
+     * sondern 302. Das heißt es handelt sich nicht um eine permanete Umleitung.
+     * Die alte und die neue Url werden dadruch als zwei unterschiedliche Seiten
+     * von Suchmaschinen behandelt.
      *
      * @param string $url Die URL zu der umgeleitet werden soll.
+     * @param  string $domain [description]
+     *
+     * @return [type]         [description]
      */
     public static function status302($url, $domain = '')
     {
@@ -24,13 +25,13 @@ class Redirect
 
         $uri   = rtrim(dirname(Request::server('PHP_SELF')), '/\\');
         header("Location: $protocoll://$host/$uri$url");
-        exit;
+        exit();
     }
 
     public static function redirect($url, $domain = '')
     {
         self::status302($url, $domain);
-        exit;
+        exit();
     }
 
     public static function status404($url)
@@ -42,14 +43,14 @@ class Redirect
         $uri   = rtrim(dirname(Request::server('PHP_SELF')), '/\\');
         header("HTTP/1.0 404 Not Found");
         header("Location: $protocoll://$host$uri$url");
-        exit;
+        exit();
     }
 
 
     /**
-     * Fuehrt eine Seitenumleiteung durch. Vewendet wird der Statuscode 301.
+     * Führt eine Seitenumleiteung durch. Vewendet wird der Statuscode 301.
      * Das bedeutet, dass es sich um eine "echte" Umleitung handelt.
-     * Beide Seiten, die alte und die neue, erscheinen fuer den Aufrufer, wie
+     * Beide Seiten, die Alte und die Neue erscheinen für den Aufrufer, wie
      * zum Beispiel google, als die selbe Seite.
      *
      * @param string $url Die url zu der umgeleitet werden soll.

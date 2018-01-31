@@ -2,9 +2,11 @@
 namespace RobinTheHood\PhpFramework;
 
 use RobinTheHood\NamingConvention\NamingConvention;
+use RobinTheHood\PhpFramework\Module\ModuleLoader;
 
 class AppServerRequest
 {
+    private $module = '';
     private $app = 'Public';
     private $controller = 'Index';
     private $action = 'Index';
@@ -12,6 +14,10 @@ class AppServerRequest
 
     public function __construct()
     {
+        if ($module = Request::get('module')) {
+            $this->module = NamingConvention::snakeCaseToCamelCaseFirstUpper($module);
+        }
+
         if ($app = Request::get('app')) {
             $this->app = NamingConvention::snakeCaseToCamelCaseFirstUpper($app);
         }
@@ -30,6 +36,11 @@ class AppServerRequest
         return Request::server('REQUEST_URI');
     }
 
+    public function getModule()
+    {
+        return $this->module;
+    }
+
     public function getApp()
     {
         return $this->app;
@@ -45,18 +56,28 @@ class AppServerRequest
         return $this->action;
     }
 
-
-
     public function getControllerFilePath()
     {
-        $relativControllerDir = 'app/Controllers/';
+        if ($this->module) {
+            $moduleDescriptor = ModuleLoader::getModuleDescriptor($this->module);
+            $relativControllerDir = $moduleDescriptor['path'] . '/Controllers/';
+        } else {
+            $relativControllerDir = 'app/Controllers/';
+        }
 
         return App::getRootPath() . $relativControllerDir . $this->app . 'Controllers/' . $this->getClass() . '.php';
     }
 
     public function getNamespace()
     {
-        return 'App\Controllers\\' . $this->app . 'Controllers\\';
+        if ($this->module) {
+            $moduleDescriptor = ModuleLoader::getModuleDescriptor($this->module);
+            $baseNamespace = $moduleDescriptor['namespace'] . '\Controllers\\';
+        } else {
+            $baseNamespace = 'App\Controllers\\';
+        }
+
+        return $baseNamespace . $this->app . 'Controllers\\';
     }
 
     public function getClass()

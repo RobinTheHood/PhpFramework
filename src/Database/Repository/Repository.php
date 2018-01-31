@@ -1,22 +1,10 @@
 <?php
 namespace RobinTheHood\PhpFramework\Database\Repository;
 
+use RobinTheHood\Database\DatabaseType;
+use RobinTheHood\Database\DatabaseAction;
 use RobinTheHood\PhpFramework\Database\DatabaseObject\DatabaseObjectCreator;
 use RobinTheHood\PhpFramework\Database\Repository\BaseRepository;
-use RobinTheHood\Database\DatabaseAction;
-use RobinTheHood\Database\DatabaseType;
-
-// $repo = new UserRepository();
-// $users = $repo->getAll();
-//
-// $repo = new UserRepository();
-// $query = $repo->newQuery()->orderBy('id');
-// $objs = $repo->getAllByQuery($query);
-//
-// $repo = new UserRepository();
-// $query = $repo->newQuery()->orderBy('id')->where();
-// $objs = $repo->getAllByQuery($query);
-
 use RobinTheHood\SqlBuilder\SqlBuilder;
 
 class Repository extends BaseRepository

@@ -2,47 +2,71 @@
 namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 
 use RobinTheHood\PhpFramework\Button;
+use RobinTheHood\PhpFramework\Request;
+use RobinTheHood\PhpFramework\Session;
+use RobinTheHood\PhpFramework\ArrayHelper;
+use RobinTheHood\PhpFramework\ValueFormater;
 use RobinTheHood\PhpFramework\Controllers\ModelController\ModelControllerBase;
 use RobinTheHood\PhpFramework\Html\HtmlObjectForm;
-use RobinTheHood\PhpFramework\Session;
-use RobinTheHood\PhpFramework\ValueFormater;
-use RobinTheHood\PhpFramework\Request;
-use RobinTheHood\PhpFramework\ArrayHelper;
 
-/*
-get:
-    + invokeModelIndex
-    + invokeModelShow
-    + invokeModelEdit
-
-modify:
-    + invokeModelIndex
-    + invokeModelShow
-    + invokeModelNew
-    + invokeModelEdit
-
-postModify:
-    + invokeModelNew
-    + invokeModelEdit
-
-postDone
-    + invokeModelNew
-    + invokeModelEdit
-
-render:
-    + invokeModelIndex
-    + invokeModelShow
-    + invokeModelNew
-    + invokeModelEdit
-*/
-
+/**
+ * Die ModelController Klasse stellt Methoden zur Verfügung, mit der sich
+ * das Anzeigen und Verarbeiten von Models einfach erledigen lässt. Die Klasse
+ * bietet Methoden für die Controller Actions invokeIndex, invokeShow,
+ * invokeEdit, invokeDelete, invokeModelMultiEdit und invokeModelMultiEdit. Das
+ * Verhalten dieser Methoden kann mit Hooks in Form von Callables angepasst
+ * werden.
+ *
+ * Liste der Hooks:
+ *
+ * get:
+ *      invokeModelIndex
+ *      invokeModelShow
+ *      invokeModelEdit
+ *      invokeModelDelete
+ *      invokeModelMultiEdit
+ *
+ * check:
+ *      invokeModelDelete
+ *
+ * new:
+ *      invokeModelMultiEditAdd
+ *
+ * modify:
+ *      invokeModelIndex
+ *      invokeModelShow
+ *      invokeModelNew
+ *      invokeModelEdit
+ *
+ * postModify:
+ *      invokeModelNew
+ *      invokeModelEdit
+ *
+ * postDone
+ *      invokeModelNew
+ *      invokeModelEdit
+ *      invokeModelDelete
+ *      invokeModelMultiEdit
+ *
+ * postDefault
+ *      invokeModelMultiEdit
+ *
+ * postNew
+ *      invokeModelMultiEdit
+ *
+ * postEdit
+ *      invokeModelMultiEdit
+ *
+ * render:
+ *      invokeModelIndex
+ *      invokeModelShow
+ *      invokeModelNew
+ *      invokeModelEdit
+ *      invokeModelMultiEdit
+ *      invokeModelMultiEditAdd
+ */
 class ModelController extends ModelControllerBase
 {
-    public function __construct($objClassName = '')
-    {
-        parent::__construct($objClassName);
-    }
-
     public function invokeModelIndex($options = '', $functions = [])
     {
         $this->init($options);
@@ -100,7 +124,7 @@ class ModelController extends ModelControllerBase
 
         if (Request::get('format') === 'json') {
             $temp = json_encode($values);
-            echo str_replace('\u0000', '', $temp);
+            $test = str_replace('\u0000', '', $temp);
             return;
         }
 
@@ -292,7 +316,7 @@ class ModelController extends ModelControllerBase
         Session::setValue($objs, 'objs', 'ModelMultiEdit' . $this->modelName);
 
         $form = new HtmlObjectForm($obj, $this->options);
-        $form->setIndex(count($objs)-1);
+        $form->setIndex(\count($objs)-1);
 
         $templateVars = [
             'controller' => $this->getControllerTemplateVars(),

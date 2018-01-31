@@ -1,10 +1,10 @@
 <?php
 namespace RobinTheHood\PhpFramework\Html;
 
-use RobinTheHood\PhpFramework\Html\HtmlObject;
-use RobinTheHood\PhpFramework\Button;
 use RobinTheHood\Html\HtmlInput;
 use RobinTheHood\Html\HtmlLabel;
+use RobinTheHood\PhpFramework\Button;
+use RobinTheHood\PhpFramework\Html\HtmlObject;
 
 class HtmlObjectForm extends HtmlObject
 {
