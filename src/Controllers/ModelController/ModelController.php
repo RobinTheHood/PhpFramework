@@ -124,7 +124,7 @@ class ModelController extends ModelControllerBase
 
         if (Request::get('format') === 'json') {
             $temp = json_encode($values);
-            $test = str_replace('\u0000', '', $temp);
+            echo str_replace('\u0000', '', $temp);
             return;
         }
 
