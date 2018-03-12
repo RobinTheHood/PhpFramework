@@ -10,7 +10,11 @@ class Request
 
     public static function getAll()
     {
-        return filter_input_array(INPUT_GET);
+        $result = filter_input_array(INPUT_GET);
+        if (is_array($result)) {
+            return $result;
+        }
+        return [];
     }
 
     public static function getInt($name)
@@ -25,7 +29,11 @@ class Request
 
     public static function postAll()
     {
-        return filter_input_array(INPUT_POST);
+        $result = filter_input_array(INPUT_POST);
+        if (is_array($result)) {
+            return $result;
+        }
+        return [];
     }
 
     public static function postInt($name)
