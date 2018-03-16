@@ -106,6 +106,8 @@ class ModelFileCreator extends FileCreator
             $this->strLoadFiles[]              = $this->createStrLoadFileDependency($dependency);
             $this->strGetObjsFunctions[]       = $this->createStrGetObjsFunction($className, $dependency);
         }
+
+        $this->strLoadFiles = array_unique($this->strLoadFiles);
     }
 
     private function createModelFileStr($className, $structure)
