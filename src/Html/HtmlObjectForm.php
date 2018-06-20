@@ -122,7 +122,7 @@ class HtmlObjectForm extends HtmlObject
 
         $htmlInput = $this->createHtmlInput('textarea', $varName, [
             'value' => $value,
-            'placeholder', $labelText
+            'placeholder' => $labelText
         ]);
         $htmlInput->setAttributes($attributes);
 
@@ -137,7 +137,7 @@ class HtmlObjectForm extends HtmlObject
         $htmlInput = $this->createHtmlInput('input', $varName, [
             'type' => 'datetime-local',
             'value' => $value,
-            'placeholder', $labelText
+            'placeholder' => $labelText
         ]);
         $htmlInput->setAttributes($attributes);
 
@@ -152,7 +152,7 @@ class HtmlObjectForm extends HtmlObject
         $htmlInput = $this->createHtmlInput('input', $varName, [
             'type' => 'date',
             'value' => $value,
-            'placeholder', $labelText
+            'placeholder' => $labelText
         ]);
         $htmlInput->setAttributes($attributes);
 
@@ -167,7 +167,7 @@ class HtmlObjectForm extends HtmlObject
         $htmlInput = $this->createHtmlInput('input', $varName, [
             'type' => 'time',
             'value' => $value,
-            'placeholder', $labelText
+            'placeholder' => $labelText
         ]);
         $htmlInput->setAttributes($attributes);
 
@@ -182,7 +182,7 @@ class HtmlObjectForm extends HtmlObject
         $htmlInput = $this->createHtmlInput('input', $varName, [
             'type' => 'text',
             'value' => $value,
-            'placeholder', $labelText
+            'placeholder' => $labelText
         ]);
         $htmlInput->setAttributes($attributes);
 
@@ -197,7 +197,7 @@ class HtmlObjectForm extends HtmlObject
         $htmlInput = $this->createHtmlInput('input', $varName, [
             'type' => 'text',
             'value' => $value,
-            'placeholder', $labelText
+            'placeholder' => $labelText
         ]);
         $htmlInput->setAttributes($attributes);
 
@@ -212,7 +212,7 @@ class HtmlObjectForm extends HtmlObject
         $htmlInput = $this->createHtmlInput('input', $varName, [
             'type' => 'text',
             'value' => $value,
-            'placeholder', $labelText
+            'placeholder' => $labelText
         ]);
         $htmlInput->setAttributes($attributes);
 
@@ -227,7 +227,7 @@ class HtmlObjectForm extends HtmlObject
         $htmlInput = $this->createHtmlInput('input', $varName, [
             'value' => $value,
             'type' => 'password',
-            'placeholder', $labelText
+            'placeholder' => $labelText
         ]);
         $htmlInput->setAttributes($attributes);
 
