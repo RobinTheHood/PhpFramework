@@ -7,6 +7,8 @@ class ValueParser
     {
         if ($type == 'percent') {
             return self::percent($value);
+        } else if ($type == 'float') {
+            return self::float($value);
         } else if ($type == 'datetime') {
             return self::datetime($value);
         } else if ($type == 'password') {
@@ -39,5 +41,13 @@ class ValueParser
     static public function password($value)
     {
         return password_hash($value, PASSWORD_DEFAULT);
+    }
+
+    static public function float($value)
+    {
+        $str = trim($value);
+        $str = str_replace(',', '.', $str);
+        $float = (float) $str;
+        return $float;
     }
 }

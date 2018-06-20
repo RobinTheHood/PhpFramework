@@ -59,6 +59,10 @@ class ValueFormater
 
     public function getFloat($varName)
     {
+        $float = $this->getValue($varName);
+        $str = str_replace('.', ',', $float);
+        return $str;
+
         return $this->getValue($varName);
     }
 
