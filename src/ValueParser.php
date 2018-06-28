@@ -3,22 +3,25 @@ namespace RobinTheHood\PhpFramework;
 
 class ValueParser
 {
-    static public function parse($value, $type)
+    public static function parse($value, $type)
     {
         if ($type == 'percent') {
             return self::percent($value);
-        } else if ($type == 'float') {
+        } elseif ($type == 'float') {
             return self::float($value);
-        } else if ($type == 'datetime') {
+        } elseif ($type == 'datetime') {
             return self::datetime($value);
-        } else if ($type == 'password') {
+        } elseif ($type == 'password') {
             return self::password($value);
+        } elseif ($type == 'currency') {
+            return self::currency($value);
         }
+
         return $value;
     }
 
     // 19,1% -> 0.191
-    static public function percent($value)
+    public static function percent($value)
     {
         $str = trim($value);
         $str = str_replace('%', '', $str);
@@ -29,7 +32,7 @@ class ValueParser
     }
 
     // 17.07.1987 12:54:03 -> 1987-07-17 12:54:03
-    static public function dateTime($value)
+    public static function dateTime($value)
     {
         $value = trim($value);
         if ($value) {
@@ -38,16 +41,21 @@ class ValueParser
         return '0000-00-00 00:00:00';
     }
 
-    static public function password($value)
+    public static function password($value)
     {
         return password_hash($value, PASSWORD_DEFAULT);
     }
 
-    static public function float($value)
+    public static function float($value)
     {
         $str = trim($value);
         $str = str_replace(',', '.', $str);
         $float = (float) $str;
         return $float;
+    }
+
+    public static function currency($value)
+    {
+        return self::float($value);
     }
 }
