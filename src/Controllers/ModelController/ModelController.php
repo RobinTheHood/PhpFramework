@@ -206,6 +206,15 @@ class ModelController extends ModelControllerBase
                 $obj = $functions['postModify']($obj);
             }
 
+            $check = true;
+            if (!empty($functions['check'])) {
+                $check = $functions['check']($obj);
+            }
+
+            if (!$check) {
+                return false;
+            }
+            
             $this->repo->update($obj);
 
             if (!empty($functions['postDone'])) {
@@ -341,12 +350,12 @@ class ModelController extends ModelControllerBase
 
         $this->init($options, $obj);
 
-        $delete = true;
+        $check = true;
         if (!empty($functions['check'])) {
-            $delete = $functions['check']($obj);
+            $check = $functions['check']($obj);
         }
 
-        if (!$delete) {
+        if (!$check) {
             return false;
         }
 
