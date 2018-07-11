@@ -3,6 +3,7 @@ namespace RobinTheHood\PhpFramework\Database\Repository;
 
 use RobinTheHood\Database\DatabaseType;
 use RobinTheHood\Database\DatabaseAction;
+use RobinTheHood\PhpFramework\ArrayHelper;
 use RobinTheHood\PhpFramework\Database\DatabaseObject\DatabaseObjectCreator;
 use RobinTheHood\PhpFramework\Database\Repository\BaseRepository;
 use RobinTheHood\SqlBuilder\SqlBuilder;
@@ -39,6 +40,8 @@ class Repository extends BaseRepository
         $query = $this->newQuery();
         if (!empty($options['orderBy'])) {
             $query->orderBy($options['orderBy']);
+        } elseif (ArrayHelper::getIfSet($this->options, 'orderBy')) {
+            $query->orderBy($this->options['orderBy']);
         }
         return $this->getAllByQuery($query);
     }
@@ -50,6 +53,24 @@ class Repository extends BaseRepository
               ->equals($columnName, $columnValue);
         if (!empty($options['orderBy'])) {
             $query->orderBy($options['orderBy']);
+        } elseif (ArrayHelper::getIfSet($this->options, 'orderBy')) {
+            $query->orderBy($this->options['orderBy']);
+        }
+
+        return $this->getAllByQuery($query);
+    }
+
+    public function getAllByArray($values)
+    {
+        $query = $this->newQuery();
+        $where = $query->where();
+
+        foreach($values as $column => $value) {
+            $where->equals($column, $value);
+        }
+
+        if (ArrayHelper::getIfSet($this->options, 'orderBy')) {
+            $query->orderBy($this->options['orderBy']);
         }
 
         return $this->getAllByQuery($query);
@@ -58,6 +79,11 @@ class Repository extends BaseRepository
     public function setOptions(array $options)
     {
         $this->options = $options;
+    }
+
+    public function orderBy($orderBy)
+    {
+        $this->options['orderBy'] = $orderBy;
     }
 }
     //
