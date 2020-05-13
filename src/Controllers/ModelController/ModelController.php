@@ -337,7 +337,7 @@ class ModelController extends ModelControllerBase
         return $templateVars;
     }
 
-    public function invokeModelDelete($options = '', $functions = [])
+    public function invokeModelDelete($options = [], $functions = [])
     {
         if (!empty($functions['get'])) {
             $obj = $functions['get']();

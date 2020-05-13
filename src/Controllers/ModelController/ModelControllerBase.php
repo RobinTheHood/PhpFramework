@@ -2,6 +2,7 @@
 namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 
 use RobinTheHood\PhpFramework\Request;
+use RobinTheHood\PhpFramework\ArrayHelper;
 use RobinTheHood\PhpFramework\AppServerRequest;
 use RobinTheHood\PhpFramework\Controllers\Controller;
 
@@ -108,7 +109,7 @@ class ModelControllerBase extends Controller
             }
         } elseif (is_array($allowedColumnNames)) {
             foreach ($allowedColumnNames as $columnName) {
-                if ($structure[$columnName]) {
+                if (ArrayHelper::getIfSet($structure, $columnName)) {
                     $filteredStructure[$columnName] = $structure[$columnName];
                 }
             }

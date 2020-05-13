@@ -141,7 +141,7 @@ class ModelControllerOptions
         $options['fieldTypes']['id'] = 'hidden';
         $options['fieldTypes']['object'] = 'object';
         ArrayHelper::setIfUnset($options, 'fieldTypes', []);
-        if ($options['autoFieldTypes'] == 'on') {
+        if (ArrayHelper::getIfSet($options, 'autoFieldTypes') == 'on') {
             foreach($structure as $columnName => $definition) {
                 if (empty($options['fieldTypes'][$columnName])) {
                     if ($columnName == 'id' && $definition[0] == DatabaseType::T_INT) {
