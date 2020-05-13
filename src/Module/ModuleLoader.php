@@ -45,7 +45,6 @@ class ModuleLoader
         $classNames = $this->getListenerClassNames($moduleDescriptor);
         foreach($classNames as $className) {
             $classNameWithNamespace = $this->getListenerClassNameWithNamespace($moduleDescriptor, $className);
-            // $this->addListener($classNameWithNamespace, 'bills_controller.bill.edited', 'doEcho');
         }
     }
 
