@@ -7,7 +7,7 @@ use RobinTheHood\PhpFramework\Request;
 use RobinTheHood\PhpFramework\ArrayHelper;
 use RobinTheHood\PhpFramework\ValueParser;
 
-class Object
+class PfObject
 {
     public function getClassNameWithNamespace()
     {

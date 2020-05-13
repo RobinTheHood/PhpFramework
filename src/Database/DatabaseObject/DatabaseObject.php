@@ -2,9 +2,9 @@
 namespace RobinTheHood\PhpFramework\Database\DatabaseObject;
 
 use RobinTheHood\DateTime\DateTime;
-use RobinTheHood\PhpFramework\Object\Object;
+use RobinTheHood\PhpFramework\Object\PfObject;
 
-class DatabaseObject extends Object
+class DatabaseObject extends PfObject
 {
     protected $id = -1;
     protected $created = '';
