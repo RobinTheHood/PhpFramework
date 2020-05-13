@@ -69,7 +69,8 @@ class BaseRepository
         }
 
         $obj->setCreated(DateTime::dbDateTimeNow());
-
+        $obj->setChanged(DateTime::dbDateTimeNow());
+        
         $query = new SqlBuilder();
         $query = $query->insert()->setTable($this->getTableName());
 
