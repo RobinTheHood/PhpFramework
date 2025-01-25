@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 
 use RobinTheHood\Database\DatabaseType;
@@ -67,7 +68,7 @@ class ModelControllerOptions
         return $this->initOptions;
     }
 
-    protected function initViewClass(& $options, $modelController)
+    protected function initViewClass(&$options, $modelController)
     {
         $appName = $modelController->getAppName();
         $viewClass = '\App\Views\Standard' . $appName . 'View';
@@ -75,7 +76,7 @@ class ModelControllerOptions
         ArrayHelper::setIfUnset($options, 'viewClass', $viewClass);
     }
 
-    protected function initTemplates(& $options, $modelController)
+    protected function initTemplates(&$options, $modelController)
     {
         $appName = $modelController->getAppName();
         $modelName = $modelController->getModelName();
@@ -130,7 +131,7 @@ class ModelControllerOptions
         return file_exists($templateBasePath . '/' . $templateFile);
     }
 
-    protected function initFields(& $options, $modelController)
+    protected function initFields(&$options, $modelController)
     {
         $structure = $modelController->getStructure();
 
@@ -142,7 +143,7 @@ class ModelControllerOptions
         $options['fieldTypes']['object'] = 'object';
         ArrayHelper::setIfUnset($options, 'fieldTypes', []);
         if (ArrayHelper::getIfSet($options, 'autoFieldTypes') == 'on') {
-            foreach($structure as $columnName => $definition) {
+            foreach ($structure as $columnName => $definition) {
                 if (empty($options['fieldTypes'][$columnName])) {
                     if ($columnName == 'id' && $definition[0] == DatabaseType::T_INT) {
                         $options['fieldTypes'][$columnName] = 'hidden';
@@ -162,7 +163,7 @@ class ModelControllerOptions
         // FieldNames
         if (isset($options['disableFieldNames']) &&  $options['disableFieldNames'] == 'all') {
             $options['disableFieldNames'] = [];
-            foreach($structure as $columnName => $definition) {
+            foreach ($structure as $columnName => $definition) {
                 $options['disableFieldNames'][$columnName] = true;
             }
         }
@@ -170,18 +171,18 @@ class ModelControllerOptions
         //FieldAddons
         if (isset($options['autoFieldAdds']) && $options['autoFieldAdds'] == 'off') {
             $options['fieldAddons'] = [];
-            foreach($structure as $columnName => $definition) {
+            foreach ($structure as $columnName => $definition) {
                 $options['fieldAddons'][$columnName] = false;
             }
         } else {
             $options['fieldAddons'] = [];
-            foreach($structure as $columnName => $definition) {
+            foreach ($structure as $columnName => $definition) {
                 $options['fieldAddons'][$columnName] = true;
             }
         }
     }
 
-    protected function initActions(& $options, $object, $modelController)
+    protected function initActions(&$options, $object, $modelController)
     {
         $modelName = $modelController->getModelName();
         $controller = $modelName . 's';
@@ -202,13 +203,13 @@ class ModelControllerOptions
             ArrayHelper::setIfUnset($options, 'indexVisible', true);
         }
 
-        $buttons['modelIndex'] = (new Button)->change([
+        $buttons['modelIndex'] = (new Button())->change([
             'controller' => $controller,
             'action' => 'index'
         ]);
 
         //
-        // ArrayHelper::setIfUnset($options, 'indexUrl', (new Button)->change([
+        // ArrayHelper::setIfUnset($options, 'indexUrl', (new Button())->change([
         //     'controller' => $controller,
         //     'action' => 'index'
         // ]));
@@ -222,7 +223,7 @@ class ModelControllerOptions
         }
 
         if ($object) {
-            $buttons['modelShow'] = (new Button)->change([
+            $buttons['modelShow'] = (new Button())->change([
                 'controller' => $controller,
                 'action' => 'show',
                 'id' => $object->getId()
@@ -237,7 +238,7 @@ class ModelControllerOptions
             ArrayHelper::setIfUnset($options, 'newVisible', true);
         }
 
-        $buttons['modelNew'] = (new Button)->change([
+        $buttons['modelNew'] = (new Button())->change([
             'controller' => $controller,
             'action' => 'new',
             'id' => null
@@ -252,7 +253,7 @@ class ModelControllerOptions
         }
 
         if ($object) {
-            $buttons['modelEdit'] = (new Button)->change([
+            $buttons['modelEdit'] = (new Button())->change([
                 'controller' => $controller,
                 'action' => 'edit',
                 'id' => $object->getId()
@@ -268,7 +269,7 @@ class ModelControllerOptions
         }
 
         if ($object) {
-            $buttons['modelDelete'] = (new Button)->change([
+            $buttons['modelDelete'] = (new Button())->change([
                 'controller' => $controller,
                 'action' => 'delete',
                 'id' => $object->getId()

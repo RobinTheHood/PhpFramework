@@ -1,7 +1,6 @@
 <?php
-namespace RobinTheHood\PhpFramework;
 
-use RobinTheHood\NamingConvention\NamingConvention;
+namespace RobinTheHood\PhpFramework;
 
 class ArrayHelper
 {
@@ -13,9 +12,9 @@ class ArrayHelper
         return null;
     }
 
-    public static function setIfUnset(& $array, $index, $value)
+    public static function setIfUnset(&$array, $index, $value)
     {
-        if ( !isset($array[$index]) ) {
+        if (!isset($array[$index])) {
             $array[$index] = $value;
         }
     }

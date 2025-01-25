@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Object;
 
 use RobinTheHood\NamingConvention\NamingConvention;
@@ -41,7 +42,7 @@ class PfObject
         $post = $this->filterPost();
 
         $array = [];
-        foreach($post as $key => $value) {
+        foreach ($post as $key => $value) {
             $camelCaseKey = NamingConvention::snakeCaseToCamelCase($key);
             $array[$camelCaseKey] = $value;
         }
@@ -88,14 +89,12 @@ class PfObject
                 'action' => 'edit',
                 'id' => $this->get('id')
             ]);
-
         } elseif ($action == 'modelDelete') {
             return (new Button())->change([
                 'controller' => $this->getClassName() . 's',
                 'action' => 'delete',
                 'id' => $this->get('id')
             ]);
-
         }
     }
 
@@ -106,7 +105,7 @@ class PfObject
         $post = Request::postAll();
         $arrays = ArrayHelper::getIfSet($post, $className, []);
 
-        foreach($arrays as &$array) {
+        foreach ($arrays as &$array) {
             if (ArrayHelper::getIfSet($array, 'multiEditAction') != 'delete') {
                 $objClassNameWithNamespace = 'App\\Models\\' . $className;
                 $obj = new $objClassNameWithNamespace();

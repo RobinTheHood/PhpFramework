@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Views;
 
 class View
@@ -29,7 +30,7 @@ class View
 
     public function setVars($array)
     {
-        foreach($array as $name => $value) {
+        foreach ($array as $name => $value) {
             $this->setVar($name, $value);
         }
     }
@@ -46,6 +47,5 @@ class View
 
     public function __toString()
     {
-
     }
 }

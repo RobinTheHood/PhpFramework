@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework;
 
 use RobinTheHood\NamingConvention\NamingConvention;
@@ -20,8 +21,7 @@ class Button
     {
         $button = clone $this;
 
-        foreach($values as $index => $value)
-        {
+        foreach ($values as $index => $value) {
             $button->values[$index] = $value;
             if ($value === null) {
                 unset($button->values[$index]);
@@ -37,11 +37,11 @@ class Button
         $urlValues = '';
         foreach ($values as $key => $value) {
             if ($value != null) {
-                if($count++) {
+                if ($count++) {
                     $urlValues .= '&';
                 }
                 $keySnakeCase = NamingConvention::camelCaseToSnakeCase($key);
-                $urlValues .= $keySnakeCase .'=' . $value;
+                $urlValues .= $keySnakeCase . '=' . $value;
             }
         }
         $url = 'index.php?' . $urlValues;

@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework;
 
 use RobinTheHood\PhpFramework\Redirect;
@@ -15,7 +16,7 @@ class Dispatcher
 
         try {
             $this->loadControllerFile($request);
-        } catch(ControllerFileNotExsistException $e) {
+        } catch (ControllerFileNotExsistException $e) {
             if ($thowException) {
                 throw $e;
             } else {
@@ -25,7 +26,7 @@ class Dispatcher
 
         try {
             $controller = $this->createControllerInstance($request);
-        } catch(ControllerClassNotExsistException $e) {
+        } catch (ControllerClassNotExsistException $e) {
             if ($thowException) {
                 throw $e;
             } else {
@@ -35,7 +36,7 @@ class Dispatcher
 
         try {
             $this->invokeController($controller, $request);
-        } catch(ControllerMethodNotExsistException $e) {
+        } catch (ControllerMethodNotExsistException $e) {
             if ($thowException) {
                 throw $e;
             } else {
@@ -43,8 +44,6 @@ class Dispatcher
             }
         }
     }
-
-
 
     private function loadControllerFile($request)
     {
@@ -57,16 +56,17 @@ class Dispatcher
         require_once $path;
     }
 
-
     private function createControllerInstance($request)
     {
         $class = $request->getClassWithNamespace();
 
         if (!class_exists($class)) {
-            throw new ControllerClassNotExsistException("Controller Class $class not exsist in File: " . $request->getControllerFilePath());
+            throw new ControllerClassNotExsistException(
+                "Controller Class $class not exsist in File: " . $request->getControllerFilePath()
+            );
         }
 
-        return new $class;
+        return new $class();
     }
 
 
@@ -75,7 +75,9 @@ class Dispatcher
         $method = $request->getInvokeMethod();
 
         if (!$this->controllerMethodExists($controller, $method)) {
-            throw new ControllerMethodNotExsistException("Controller Method $method not exsist in " . get_class($controller) . '. Query: ' . $request->getUri());
+            throw new ControllerMethodNotExsistException(
+                "Controller Method $method not exsist in " . get_class($controller) . '. Query: ' . $request->getUri()
+            );
         }
 
         $controller->preInvoke();

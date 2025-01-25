@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 
 use RobinTheHood\PhpFramework\Button;
@@ -78,7 +79,7 @@ class ModelController extends ModelControllerBase
         }
 
         $rows = [];
-        foreach($objs as $obj) {
+        foreach ($objs as $obj) {
             $row['model'] = $obj;
             $row['values'] = $this->getObjAttValues($obj, $this->filteredStructure);
 
@@ -214,7 +215,7 @@ class ModelController extends ModelControllerBase
             if (!$check) {
                 return false;
             }
-            
+
             $this->repo->update($obj);
 
             if (!empty($functions['postDone'])) {
@@ -246,7 +247,7 @@ class ModelController extends ModelControllerBase
             $post = Request::postAll();
             $arrays = ArrayHelper::getIfSet($post, $this->modelName, []);
 
-            foreach($arrays as &$array) {
+            foreach ($arrays as &$array) {
                 if (!empty($functions['postDefault'])) {
                     $array = $functions['postDefault']($array);
                 }
@@ -293,7 +294,7 @@ class ModelController extends ModelControllerBase
 
         $forms = [];
         $index = 0;
-        foreach($objs as $obj) {
+        foreach ($objs as $obj) {
             $form = new HtmlObjectForm($obj, $this->options);
             $form->setIndex($index++);
             $forms[] = $form;
@@ -325,7 +326,7 @@ class ModelController extends ModelControllerBase
         Session::setValue($objs, 'objs', 'ModelMultiEdit' . $this->modelName);
 
         $form = new HtmlObjectForm($obj, $this->options);
-        $form->setIndex(\count($objs)-1);
+        $form->setIndex(count($objs) - 1);
 
         $templateVars = [
             'controller' => $this->getControllerTemplateVars(),
@@ -364,7 +365,7 @@ class ModelController extends ModelControllerBase
         if (!empty($functions['postDone'])) {
             $functions['postDone']();
         } else {
-            $this->redirect((new Button)->change([
+            $this->redirect((new Button())->change([
                 'controller' => $this->modelName . 's',
                 'action' => 'index'
             ]));

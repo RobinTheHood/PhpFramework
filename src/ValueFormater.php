@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework;
 
 use RobinTheHood\DateTime\DateTime;
@@ -20,7 +21,7 @@ class ValueFormater
             $type = isset($this->types[$varName]) ? $this->types[$varName] : null;
         }
 
-        switch($type) {
+        switch ($type) {
             case 'string':
                 return $this->getString($varName);
             case 'int':
@@ -69,7 +70,7 @@ class ValueFormater
     public function getPercent($varName)
     {
         $value = $this->getValue($varName);
-        $str = number_format(((float)$value)*100, 2, ',', '.');
+        $str = number_format(((float) $value) * 100, 2, ',', '.');
         $str = rtrim($str, "0");
         $str = rtrim($str, ",");
         return $str . ' %';

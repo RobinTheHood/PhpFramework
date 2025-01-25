@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\FileCreators;
 
 use RobinTheHood\Database\DatabaseType;
@@ -93,7 +94,7 @@ class ModelFileCreator extends FileCreator
 
     private function createComponents($className, $structure, $dependencies = [])
     {
-        foreach($structure as $name => $definitions) {
+        foreach ($structure as $name => $definitions) {
             $this->strLoadFiles[$name]         = $this->createStrLoadFile($name, $definitions);
             $this->strGetObjFunctions[$name]   = $this->createStrGetObjFunction($name, $definitions);
             $this->strAttributes[$name]        = $this->createStrAttribute($name, $definitions);
@@ -125,31 +126,45 @@ class ModelFileCreator extends FileCreator
 
     private function createModelBaseFileStr($className, $structure)
     {
-        foreach($this->strLoadFiles as $strLoadFile) {
+        $strLoadFileResult = '';
+
+        foreach ($this->strLoadFiles as $strLoadFile) {
             if ($strLoadFile) {
                 $strLoadFileResult .= $strLoadFile;
             }
         }
-        foreach($this->strAttributes as $strAttribute) {
+
+        $strAttributeResult = '';
+        foreach ($this->strAttributes as $strAttribute) {
             $strAttributeResult .= $strAttribute;
         }
-        foreach($this->strSetFunctions as $strSetFunction) {
+
+        $strSetFunctionResult = '';
+        foreach ($this->strSetFunctions as $strSetFunction) {
             $strSetFunctionResult .= $strSetFunction . "\n";
         }
-        foreach($this->strGetFunctions as $strGetFunction) {
+
+        $strGetFunctionResult = '';
+        foreach ($this->strGetFunctions as $strGetFunction) {
             $strGetFunctionResult .= $strGetFunction . "\n";
         }
-        foreach($this->strIsFunctions as $strIsFunction) {
+
+        $strIsFunctionResult = '';
+        foreach ($this->strIsFunctions as $strIsFunction) {
             if ($strIsFunction) {
                 $strIsFunctionResult .= $strIsFunction . "\n";
             }
         }
-        foreach($this->strGetObjFunctions as $strGetObjFunction) {
+
+        $strGetObjFunctionResult = '';
+        foreach ($this->strGetObjFunctions as $strGetObjFunction) {
             if ($strGetObjFunction) {
                 $strGetObjFunctionResult .= $strGetObjFunction . "\n";
             }
         }
-        foreach($this->strGetObjsFunctions as $strGetObjsFunction) {
+
+        $strGetObjsFunctionResult = '';
+        foreach ($this->strGetObjsFunctions as $strGetObjsFunction) {
             $strGetObjsFunctionResult .= $strGetObjsFunction . "\n";
         }
 
@@ -171,27 +186,27 @@ class ModelFileCreator extends FileCreator
     private function createStrAttribute($name, $definition)
     {
         $spaces = 4;
-        $str .= $this->writeLine('protected $' .  $name .';', $spaces);
+        $str = $this->writeLine('protected $' .  $name . ';', $spaces);
         return $str;
     }
 
     private function createStrSetFunction($name, $definition)
     {
         $spaces = 4;
-        $str .= $this->writeLine('public function set' . ucfirst($name) . '($value)',          $spaces);
-        $str .= $this->writeLine('{',                                                          $spaces);
-        $str .= $this->writeLine('    $this->' . $name . ' = $value;',                        $spaces);
-        $str .= $this->writeLine('}',                                                          $spaces);
+        $str = $this->writeLine('public function set' . ucfirst($name) . '($value)', $spaces);
+        $str .= $this->writeLine('{', $spaces);
+        $str .= $this->writeLine('    $this->' . $name . ' = $value;', $spaces);
+        $str .= $this->writeLine('}', $spaces);
         return $str;
     }
 
     private function createStrGetFunction($name, $definition)
     {
         $spaces = 4;
-        $str .= $this->writeLine('public function get' . ucfirst($name) . '()',    $spaces);
-        $str .= $this->writeLine('{',                                              $spaces);
-        $str .= $this->writeLine('    return $this->' . $name . ';',              $spaces);
-        $str .= $this->writeLine('}',                                              $spaces);
+        $str = $this->writeLine('public function get' . ucfirst($name) . '()', $spaces);
+        $str .= $this->writeLine('{', $spaces);
+        $str .= $this->writeLine('    return $this->' . $name . ';', $spaces);
+        $str .= $this->writeLine('}', $spaces);
         return $str;
     }
 
@@ -199,20 +214,20 @@ class ModelFileCreator extends FileCreator
     {
         $spaces = 4;
         if ($definition[0] == DatabaseType::T_DATE_TIME) {
-            $str .= $this->writeLine('public function is' . ucfirst($name) . '()',                 $spaces);
-            $str .= $this->writeLine('{',                                                          $spaces);
-            $str .= $this->writeLine('    return DateTime::isDateTime($this->' . $name . ');',  $spaces);
-            $str .= $this->writeLine('}',                                                          $spaces);
+            $str = $this->writeLine('public function is' . ucfirst($name) . '()', $spaces);
+            $str .= $this->writeLine('{', $spaces);
+            $str .= $this->writeLine('    return DateTime::isDateTime($this->' . $name . ');', $spaces);
+            $str .= $this->writeLine('}', $spaces);
         } elseif ($definition[0] == DatabaseType::T_DATE) {
-            $str .= $this->writeLine('public function is' . ucfirst($name) . '()',                 $spaces);
-            $str .= $this->writeLine('{',                                                          $spaces);
-            $str .= $this->writeLine('    return DateTime::isDate($this->' . $name . ');',      $spaces);
-            $str .= $this->writeLine('}',                                                          $spaces);
+            $str = $this->writeLine('public function is' . ucfirst($name) . '()', $spaces);
+            $str .= $this->writeLine('{', $spaces);
+            $str .= $this->writeLine('    return DateTime::isDate($this->' . $name . ');', $spaces);
+            $str .= $this->writeLine('}', $spaces);
         } elseif ($definition[0] == DatabaseType::T_TIME) {
-            $str .= $this->writeLine('public function is' . ucfirst($name) . '()',                 $spaces);
-            $str .= $this->writeLine('{',                                                          $spaces);
-            $str .= $this->writeLine('    return DateTime::isTime($this->' . $name . ');',      $spaces);
-            $str .= $this->writeLine('}',                                                          $spaces);
+            $str = $this->writeLine('public function is' . ucfirst($name) . '()', $spaces);
+            $str .= $this->writeLine('{', $spaces);
+            $str .= $this->writeLine('    return DateTime::isTime($this->' . $name . ');', $spaces);
+            $str .= $this->writeLine('}', $spaces);
         }
         return $str;
     }
@@ -222,14 +237,15 @@ class ModelFileCreator extends FileCreator
         $object = $definition[1];
         if ($object) {
             $spaces = 0;
-            $str .= $this->writeLine('use App\Repositories\\' . $object . 'Repository;',            $spaces);
+            $str = $this->writeLine('use App\Repositories\\' . $object . 'Repository;', $spaces);
             return $str;
         }
     }
 
     private function createStrLoadFileDependency($dependency)
     {
-        $str .= $this->writeLine('use App\Repositories\\' . $dependency[0] . 'Repository;',        $spaces);
+        $spaces = 4;
+        $str = $this->writeLine('use App\Repositories\\' . $dependency[0] . 'Repository;', $spaces);
         return $str;
     }
 
@@ -237,16 +253,19 @@ class ModelFileCreator extends FileCreator
     {
         $object = $definition[1];
         if ($object) {
-            $name = substr($name, 0, strlen($name) -2);
+            $name = substr($name, 0, strlen($name) - 2);
             $spaces = 4;
-            $str .= $this->writeLine('public function get' . ucfirst($name) . '($cache = true)',                               $spaces);
-            $str .= $this->writeLine('{',                                                                                      $spaces);
-            $str .= $this->writeLine('    if (empty($this->' . $name . ') || $cache == false) {',                                   $spaces);
-            $str .= $this->writeLine('        $repo = new ' . ucfirst($object) . 'Repository();',                                $spaces);
-            $str .= $this->writeLine('        $this->' . $name . ' = $repo->get($this->get' . ucfirst($name). 'Id());',       $spaces);
-            $str .= $this->writeLine('    }',                                                                                  $spaces);
-            $str .= $this->writeLine('    return $this->' . $name . ';',                                                      $spaces);
-            $str .= $this->writeLine('}',                                                                                      $spaces);
+            $str = $this->writeLine('public function get' . ucfirst($name) . '($cache = true)', $spaces);
+            $str .= $this->writeLine('{', $spaces);
+            $str .= $this->writeLine('    if (empty($this->' . $name . ') || $cache == false) {', $spaces);
+            $str .= $this->writeLine('        $repo = new ' . ucfirst($object) . 'Repository();', $spaces);
+            $str .= $this->writeLine(
+                '        $this->' . $name . ' = $repo->get($this->get' . ucfirst($name) . 'Id());',
+                $spaces
+            );
+            $str .= $this->writeLine('    }', $spaces);
+            $str .= $this->writeLine('    return $this->' . $name . ';', $spaces);
+            $str .= $this->writeLine('}', $spaces);
             return $str;
         }
     }
@@ -274,17 +293,22 @@ class ModelFileCreator extends FileCreator
         //Build Varname
         $varName = lcfirst($functionName);
 
-        $name = substr($name, 0, strlen($name) -2);
         $spaces = 4;
-        $str .= $this->writeLine('public function get' . $functionName . '(array $options = [], $cache = true)',                                $spaces);
-        $str .= $this->writeLine('{',                                                                                      $spaces);
-        $str .= $this->writeLine('    if (empty($this->' . $varName . ') || $cache == false) {',                                   $spaces);
-        $str .= $this->writeLine('        $repo = new ' . $foreignObjName . 'Repository();',                                $spaces);
-        $str .= $this->writeLine('        $repo->setOptions($options);',                                                        $spaces);
-        $str .= $this->writeLine('        $this->' . $varName . ' = $repo->getAllBy(' . $foreignSqlVarNameSave . ', $this->getId());',       $spaces);
-        $str .= $this->writeLine('    }',                                                                                  $spaces);
-        $str .= $this->writeLine('    return $this->' . $varName . ';',                                                      $spaces);
-        $str .= $this->writeLine('}',                                                                                      $spaces);
+        $str = $this->writeLine(
+            'public function get' . $functionName . '(array $options = [], $cache = true)',
+            $spaces
+        );
+        $str .= $this->writeLine('{', $spaces);
+        $str .= $this->writeLine('    if (empty($this->' . $varName . ') || $cache == false) {', $spaces);
+        $str .= $this->writeLine('        $repo = new ' . $foreignObjName . 'Repository();', $spaces);
+        $str .= $this->writeLine('        $repo->setOptions($options);', $spaces);
+        $str .= $this->writeLine(
+            '        $this->' . $varName . ' = $repo->getAllBy(' . $foreignSqlVarNameSave . ', $this->getId());',
+            $spaces
+        );
+        $str .= $this->writeLine('    }', $spaces);
+        $str .= $this->writeLine('    return $this->' . $varName . ';', $spaces);
+        $str .= $this->writeLine('}', $spaces);
         return $str;
     }
 }

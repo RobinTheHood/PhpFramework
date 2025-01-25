@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Object;
 
 use RobinTheHood\PhpFramework\ValueFormater;

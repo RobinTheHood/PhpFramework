@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\FileCreators;
 
 use RobinTheHood\Database\DatabaseType;
@@ -32,12 +33,13 @@ class MigrationFileCreator extends FileCreator
 
     public function createCreateFile($className, $structure)
     {
-        foreach($structure as $name => $definitions) {
+        foreach ($structure as $name => $definitions) {
             $strMigrationAttributes[$name] = $this->createStrMigrationAttribute($name, $definitions);
         }
 
         $count = 0;
-        foreach($strMigrationAttributes as $strMigrationAttribute) {
+        $strMigrationAttributeResult = '';
+        foreach ($strMigrationAttributes as $strMigrationAttribute) {
             $strMigrationAttributeResult .= $strMigrationAttribute;
 
             // Last iteration
@@ -108,7 +110,10 @@ class MigrationFileCreator extends FileCreator
         $nameOldSnakeCase = NamingConvention::camelCaseToSnakeCase($nameOld);
         $nameNewSnakeCase = NamingConvention::camelCaseToSnakeCase($nameNew);
 
-        $migrationClassName = 'Rename' . ucfirst($nameOld) . 'To' . ucfirst($nameNew) . 'In' . $className;
+        $migrationClassName =
+            'Rename' . ucfirst($nameOld)
+            . 'To' . ucfirst($nameNew)
+            . 'In' . $className;
 
         $strUp = $this->getStrRenameColumn($className, $nameOld, $definitionOld, $nameNew, $definitionNew);
         $strDown = $this->getStrRenameColumn($className, $nameNew, $definitionNew, $nameOld, $definitionOld);
@@ -120,7 +125,12 @@ class MigrationFileCreator extends FileCreator
         ];
         $migrationContent = $this->fillTemplate($this->migrationTmplRenameFile, $values);
 
-        $migrationFileName = date('YmdHis') . '_rename_' . $nameOldSnakeCase . '_to_' . $nameNewSnakeCase . '_in_' . $classNameSnakeCase . '.php';
+        $migrationFileName =
+            date('YmdHis')
+            . '_rename_' . $nameOldSnakeCase
+            . '_to_' . $nameNewSnakeCase
+            . '_in_' . $classNameSnakeCase
+            . '.php';
         $this->writeFile($this->migrationsPath . $migrationFileName, $migrationContent);
     }
 
@@ -134,7 +144,11 @@ class MigrationFileCreator extends FileCreator
         $type                 = "'$type'";
 
         $spaces = 8;
-        $str .= $this->writeLine('$this->addColumn(' . $classNameSnakeCase . ', ' . $nameSnakeCase . ', ' . $type. ');', $spaces, false);
+        $str = $this->writeLine(
+            '$this->addColumn(' . $classNameSnakeCase . ', ' . $nameSnakeCase . ', ' . $type . ');',
+            $spaces,
+            false
+        );
         return $str;
     }
 
@@ -151,7 +165,14 @@ class MigrationFileCreator extends FileCreator
         $typeNew              = "'$typeNew'";
 
         $spaces = 8;
-        $str .= $this->writeLine('$this->renameColumn(' . $classNameSnakeCase . ', ' . $nameOldSnakeCase . ', ' . $nameNewSnakeCase . ', ' . $typeNew . ');', $spaces, false);
+        $str = $this->writeLine(
+            '$this->renameColumn('
+                . $classNameSnakeCase
+                . ', ' . $nameOldSnakeCase . ', '
+                . $nameNewSnakeCase . ', ' . $typeNew . ');',
+            $spaces,
+            false
+        );
         return $str;
     }
 
@@ -163,7 +184,11 @@ class MigrationFileCreator extends FileCreator
         $nameSnakeCase        = "'$nameSnakeCase'";
 
         $spaces = 8;
-        $str .= $this->writeLine('$this->removeColumn(' . $classNameSnakeCase . ', ' . $nameSnakeCase . ');', $spaces, false);
+        $str = $this->writeLine(
+            '$this->removeColumn(' . $classNameSnakeCase . ', ' . $nameSnakeCase . ');',
+            $spaces,
+            false
+        );
         return $str;
     }
 
@@ -174,9 +199,9 @@ class MigrationFileCreator extends FileCreator
         $type = $definitions[0];
         $spaces = 12;
         if ($type == DatabaseType::T_PRIMARY) {
-            $str .= $this->writeLine("['$nameSnakeCase', '$type', true]", $spaces, false);
+            $str = $this->writeLine("['$nameSnakeCase', '$type', true]", $spaces, false);
         } else {
-            $str .= $this->writeLine("['$nameSnakeCase', '$type']", $spaces, false);
+            $str = $this->writeLine("['$nameSnakeCase', '$type']", $spaces, false);
         }
         return $str;
     }

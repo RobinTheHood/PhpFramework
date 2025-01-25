@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Database\Repository;
 
 use RobinTheHood\Database\DatabaseType;
@@ -65,7 +66,7 @@ class Repository extends BaseRepository
         $query = $this->newQuery();
         $where = $query->where();
 
-        foreach($values as $column => $value) {
+        foreach ($values as $column => $value) {
             $where->equals($column, $value);
         }
 

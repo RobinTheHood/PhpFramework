@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Database\DatabaseObject;
 
 use RobinTheHood\DateTime\DateTime;

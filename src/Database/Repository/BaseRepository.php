@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Database\Repository;
 
 use RobinTheHood\Database\DatabaseType;
@@ -23,7 +24,7 @@ class BaseRepository
 
     protected function addStructure(array $structure)
     {
-        foreach($structure as $key => $definition) {
+        foreach ($structure as $key => $definition) {
             $this->structure[$key] = $definition;
         }
     }
@@ -70,7 +71,7 @@ class BaseRepository
 
         $obj->setCreated(DateTime::dbDateTimeNow());
         $obj->setChanged(DateTime::dbDateTimeNow());
-        
+
         $query = new SqlBuilder();
         $query = $query->insert()->setTable($this->getTableName());
 

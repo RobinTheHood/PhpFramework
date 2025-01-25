@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework;
 
 use RobinTheHood\Database\Database;
@@ -39,7 +40,7 @@ class App
         ]);
         $moduleLoader->setEventDispatcher(self::$eventDispatcher);
         $moduleLoader->load();
-        
+
         $request = AppServerRequest::getRequest();
 
         Database::newConnection(self::$config['database']);

@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\FileCreators;
 
 use RobinTheHood\PhpFramework\FileCreators\FileCreator;
@@ -42,12 +43,14 @@ class RepositoryFileCreator extends FileCreator
     {
         $structure = $this->prepareStructure($structure);
 
-        foreach($structure as $name => $definitions) {
+        foreach ($structure as $name => $definitions) {
             $strRepoAttributes[$name] = $this->createStrRepoAttribute($name, $definitions);
         }
 
         $last = count($strRepoAttributes);
-        foreach($strRepoAttributes as $strRepoAttribute) {
+        $count = 0;
+        $strRepoAttributeResult = '';
+        foreach ($strRepoAttributes as $strRepoAttribute) {
             $strRepoAttributeResult .= $strRepoAttribute;
             if (++$count != $last) {
                 $strRepoAttributeResult .= ",\n";
@@ -68,12 +71,14 @@ class RepositoryFileCreator extends FileCreator
     {
         $structure = $this->prepareStructure($structure);
 
-        foreach($structure as $name => $definitions) {
+        foreach ($structure as $name => $definitions) {
             $strRepoAttributes[$name] = $this->createStrRepoAttribute($name, $definitions);
         }
 
         $last = count($strRepoAttributes);
-        foreach($strRepoAttributes as $strRepoAttribute) {
+        $count = 0;
+        $strRepoAttributeResult = '';
+        foreach ($strRepoAttributes as $strRepoAttribute) {
             $strRepoAttributeResult .= $strRepoAttribute;
             if (++$count != $last) {
                 $strRepoAttributeResult .= ",\n";
@@ -108,7 +113,7 @@ class RepositoryFileCreator extends FileCreator
         $type = $definitions[0];
         $object = $definitions[1];
         $spaces = 12;
-        $str .= $this->writeLine("'" . $name . "' => ['" . $type . "', '" . $object . "']", $spaces, false);
+        $str = $this->writeLine("'" . $name . "' => ['" . $type . "', '" . $object . "']", $spaces, false);
         return $str;
     }
 }

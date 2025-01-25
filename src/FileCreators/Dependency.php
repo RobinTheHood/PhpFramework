@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\FileCreators;
 
 class Dependency
@@ -26,7 +27,7 @@ class Dependency
     private function getDependenciesFromStructure($foreignObjName, $objName, $structure)
     {
         $result = [];
-        foreach($structure as $keyName => $definition) {
+        foreach ($structure as $keyName => $definition) {
             if ($definition[1] == $objName) {
                 $result[]  = [$foreignObjName, $keyName, $definition[0], $definition[1]];
             }
@@ -43,7 +44,7 @@ class Dependency
     private function getStructureFromBaseRepoFile($fileName)
     {
         $classBaseRepositoryName = 'App\\Repositories\\Base\\' . str_replace('.php', '', $fileName);
-        $objRepository = new $classBaseRepositoryName;
+        $objRepository = new $classBaseRepositoryName();
         return $objRepository->getStructure();
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Database\DatabaseObject;
 
 use RobinTheHood\NamingConvention\NamingConvention;
@@ -8,7 +9,7 @@ class DatabaseObjectCreator
     public static function createObjectsFromArray($array, $className)
     {
         $objects = [];
-        foreach($array as $row) {
+        foreach ($array as $row) {
             $objects[] = self::createObjectFromArray($row, $className);
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Controllers\ModelController;
 
 use RobinTheHood\PhpFramework\Request;
@@ -13,7 +14,7 @@ class ModelControllerBase extends Controller
     protected $repoClassName;
     protected $repo;
     protected $structure;
-    protected $filterdStructure;
+    protected $filteredStructure;
     protected $options;
     protected $columnNames;
 
@@ -27,7 +28,7 @@ class ModelControllerBase extends Controller
 
         $this->appName = $this->initAppName();
         $this->repoClassName = $this->getRepoClassNameWithNamespace($this->modelName);
-        $this->repo = new $this->repoClassName;
+        $this->repo = new $this->repoClassName();
         $this->structure = $this->repo->getStructure();
         $this->columnNames = $this->getColumnNames($this->structure);
     }
@@ -94,7 +95,7 @@ class ModelControllerBase extends Controller
     {
         $values = [];
         $values['id'] = $obj->getId();
-        foreach($structure as $columnName => $definition) {
+        foreach ($structure as $columnName => $definition) {
             $values[$columnName] = $obj->get($columnName);
         }
         return $values;
@@ -104,7 +105,7 @@ class ModelControllerBase extends Controller
     {
         $filteredStructure = [];
         if ($allowedColumnNames == 'all') {
-            foreach($structure as $columnName => $definition) {
+            foreach ($structure as $columnName => $definition) {
                 $filteredStructure[$columnName] = $definition;
             }
         } elseif (is_array($allowedColumnNames)) {
@@ -154,13 +155,13 @@ class ModelControllerBase extends Controller
     protected function getColumnNames($structure, $options = '')
     {
         if (is_array($options) && is_array($options['disableFields'])) {
-            foreach($options['disableFields'] as $fieldName) {
+            foreach ($options['disableFields'] as $fieldName) {
                 unset($structure[$fieldName]);
             }
         }
 
         $columnNames = [];
-        foreach($structure as $key => $value) {
+        foreach ($structure as $key => $value) {
             $columnNames[] = $key;
         }
         return $columnNames;

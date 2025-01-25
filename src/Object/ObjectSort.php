@@ -1,11 +1,12 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Object;
 
 class ObjectSort
 {
-    static private $objectMethod;
+    private static $objectMethod;
 
-    static private function compareAsc($objectA, $objectB)
+    private static function compareAsc($objectA, $objectB)
     {
         $method = self::$objectMethod;
         $valueA = $objectA->$method();
@@ -17,7 +18,7 @@ class ObjectSort
         }
     }
 
-    static private function compareDesc($objectA, $objectB)
+    private static function compareDesc($objectA, $objectB)
     {
         $method = self::$objectMethod;
         $valueA = $objectA->$method();
@@ -39,5 +40,4 @@ class ObjectSort
         }
         return $objectArray;
     }
-
 }

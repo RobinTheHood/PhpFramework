@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Html;
 
 use RobinTheHood\Html\HtmlInput;
@@ -39,7 +40,7 @@ class HtmlObjectForm extends HtmlObject
                 $values['id'] = $this->object->getId();
             }
         }
-        return (new Button)->change($values);
+        return (new Button())->change($values);
     }
 
     public function isEdit()

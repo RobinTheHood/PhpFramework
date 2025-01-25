@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Module;
 
 use RobinTheHood\PhpFramework\App;
@@ -35,7 +36,7 @@ class ModuleLoader
     {
         $moduleDescriptors = self::getConfig();
 
-        foreach($moduleDescriptors as $moduleDescriptor) {
+        foreach ($moduleDescriptors as $moduleDescriptor) {
             $this->addSubcribers($moduleDescriptor);
         }
     }
@@ -43,7 +44,7 @@ class ModuleLoader
     protected function addListeners($moduleDescriptor)
     {
         $classNames = $this->getListenerClassNames($moduleDescriptor);
-        foreach($classNames as $className) {
+        foreach ($classNames as $className) {
             $classNameWithNamespace = $this->getListenerClassNameWithNamespace($moduleDescriptor, $className);
         }
     }
@@ -51,7 +52,7 @@ class ModuleLoader
     protected function addSubcribers($moduleDescriptor)
     {
         $classNames = $this->getSubcribersClassNames($moduleDescriptor);
-        foreach($classNames as $className) {
+        foreach ($classNames as $className) {
             $classNameWithNamespace = $this->getSubcriberClassNameWithNamespace($moduleDescriptor, $className);
             $subscriber = new $classNameWithNamespace();
             $this->eventDispatcher->addSubscriber($subscriber);
@@ -79,7 +80,7 @@ class ModuleLoader
     protected function filterClassNames($fileNames)
     {
         $classNames = [];
-        foreach($fileNames as $fileName) {
+        foreach ($fileNames as $fileName) {
             $pathParts = pathinfo($fileName);
             $classNames[] = $pathParts['filename'];
         }
@@ -117,8 +118,7 @@ class ModuleLoader
     protected function filterPhpFiles($fileNames)
     {
         $filteredFileNames = [];
-        foreach($fileNames as $fileName)
-        {
+        foreach ($fileNames as $fileName) {
             if ($fileName == '.' || $fileName == '..') {
                 continue;
             }

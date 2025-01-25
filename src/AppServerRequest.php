@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework;
 
 use RobinTheHood\NamingConvention\NamingConvention;

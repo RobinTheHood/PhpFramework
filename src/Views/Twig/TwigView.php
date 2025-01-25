@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Views\Twig;
 
 use RobinTheHood\PhpFramework\App;
@@ -18,7 +19,7 @@ class TwigView extends View
         $twigConfig = $appConfig['twig'];
         $this->setTemplatesPath($twigConfig['templatesPath']);
 
-        $loader = new \Twig_Loader_Filesystem($twigConfig['templatesPath']);
+        $loader = new Twig_Loader_Filesyste($twigConfig['templatesPath']);
 
         //Add Module Namespaces
         $moduleDescriptors = ModuleLoader::getConfig();

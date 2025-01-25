@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework;
 
 class Redirect
@@ -57,8 +58,8 @@ class Redirect
      */
     public static function status301($url)
     {
-        header ("HTTP/1.1 301 Moved Permanently");
-        header ("Location: $url");
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: $url");
         exit();
     }
 

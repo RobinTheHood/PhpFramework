@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\FileCreators;
 
 use RobinTheHood\Terminal\Terminal;
@@ -7,7 +8,8 @@ class FileCreator
 {
     protected function writeLine($str, $spaces, $newLine = true)
     {
-        for($i =0 ; $i < $spaces; $i++) {
+        $strSpaces = '';
+        for ($i = 0; $i < $spaces; $i++) {
             $strSpaces .= ' ';
         }
         if ($newLine) {
@@ -39,7 +41,7 @@ class FileCreator
     protected function fillTemplate($file, $values)
     {
         $migrationContent = $migrationTmplFile = file_get_contents($file);
-        foreach($values as $key => $value) {
+        foreach ($values as $key => $value) {
             $migrationContent = str_replace('{' .  $key . '}', $value, $migrationContent);
         }
         return $migrationContent;

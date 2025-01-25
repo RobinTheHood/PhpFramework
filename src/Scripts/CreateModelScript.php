@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Scripts;
 
 use RobinTheHood\Database\DatabaseType;
@@ -70,13 +71,11 @@ class CreateModelScript //extends Script
             Debug::out('');
             $this->printUsage();
             die();
-
         } elseif (!NamingConvention::isUpperCamelCase($name)) {
             Debug::error('Error: ClassName must be in UpperCamelCase.');
             Debug::out('');
             $this->printUsage();
             die();
-
         }
     }
 
@@ -115,7 +114,7 @@ class CreateModelScript //extends Script
             die();
         }
 
-        foreach($structure as $key => $definition) {
+        foreach ($structure as $key => $definition) {
             $this->checkAttName($key);
             if ($definition[1]) {
                 $this->checkClassName($definition[1]);
@@ -187,7 +186,7 @@ class CreateModelScript //extends Script
     private function updateModels($argv)
     {
         $baseRepoFiles = $this->getBaseRepoFileNames();
-        foreach($baseRepoFiles as $baseRepoFile) {
+        foreach ($baseRepoFiles as $baseRepoFile) {
             $className = str_replace('BaseRepository.php', '', $baseRepoFile);
 
             $this->_updateModel($className);
@@ -294,7 +293,7 @@ class CreateModelScript //extends Script
     private function getStructureFromRepo($className)
     {
         $classBaseRepositoryName = 'App\\Repositories\\Base\\' . $className . 'BaseRepository';
-        $objRepository = new $classBaseRepositoryName;
+        $objRepository = new $classBaseRepositoryName();
         $structure = $objRepository->getStructure();
         return $structure;
     }
@@ -303,7 +302,7 @@ class CreateModelScript //extends Script
     {
         $structure = [];
         $count = count($argv);
-        for ($i=$start; $i<$count; $i++) {
+        for ($i = $start; $i < $count; $i++) {
             $array = explode(':', $argv[$i]);
             $type = $this->paraseType($array[1]);
             $structure[$array[0]] = [$type , $array[2]];
@@ -323,7 +322,7 @@ class CreateModelScript //extends Script
             'changed' => [DatabaseType::T_DATE_TIME, ''],
         ];
 
-        foreach($structure as $index => $definition) {
+        foreach ($structure as $index => $definition) {
             $newStructure[$index] = $definition;
         }
 

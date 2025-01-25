@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": "^5.6 || ^7.0",
+        "php": "^5.6 || ^7.0 || ^8.0",
         "robinthehood/debug": "^0.1.3",
         "robinthehood/naming-convention": "^0.1.4",
         "robinthehood/date-time": "^0.1.0",

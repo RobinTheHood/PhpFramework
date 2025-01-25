@@ -1,4 +1,5 @@
 <?php
+
 namespace RobinTheHood\PhpFramework\Controllers;
 
 use RobinTheHood\Debug\Debug;
@@ -10,12 +11,10 @@ abstract class Controller
 {
     public function preInvoke()
     {
-
     }
 
     public function postInvoke()
     {
-
     }
 
     public function invoke404()
